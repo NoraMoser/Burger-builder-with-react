@@ -8,6 +8,7 @@ class BurgerIngredient extends Component {
  //initially we won't render anything
  let ingredient = null;
  
+ //this.props.type lets you put in type= on other pages, and if it matches case, then the jsx will render.  
      switch (this.props.type) {
          case ('bread-bottom'):
              ingredient = <div className={classes.BreadBottom}></div>
@@ -38,6 +39,8 @@ class BurgerIngredient extends Component {
      return ingredient;
     }
 }
+
+//not positive what this does.
 BurgerIngredient.propTypes = {
     type: PropTypes.string.isRequired
 }; 

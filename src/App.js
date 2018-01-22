@@ -6,6 +6,7 @@ import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 class App extends Component {
   render() {
     return (
+      //layout is the nav bar and burger builder is all the content being created.
       <div>
         <Layout>
           <BurgerBuilder />
