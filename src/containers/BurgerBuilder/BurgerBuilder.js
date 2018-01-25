@@ -16,7 +16,9 @@ class BurgerBuilder extends Component {
         }
     }
 
-    addIngredientHandler = 
+    addIngredientHandler = {
+
+    };
 
     //this exports content from Burger.js and then is able to be used on app.js
     render () {
