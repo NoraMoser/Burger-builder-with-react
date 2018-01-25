@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+
 class BurgerBuilder extends Component {
 
     //using a state is how we're going to make it dynamic
@@ -20,7 +22,7 @@ class BurgerBuilder extends Component {
             //the ingredients on here refer to the ingredients in the state.  this is how the burger.js has a variable to relate to and how it knows the length that it needs to be.
             <Aux>
                 <Burger ingredients={this.state.ingredients}/>
-                <div>Build Controls</div>
+                <BuildControls />
             </Aux>
         );
     }
