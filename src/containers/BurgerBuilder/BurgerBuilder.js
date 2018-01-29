@@ -45,7 +45,22 @@ class BurgerBuilder extends Component {
     }
 
     removeIngredientHandler = (type) => {
+        const oldCount = this.state.ingredients[type];
+        //taking away an ingredient now
+        const newCount = oldCount - 1;
 
+        //this makes us able to update the state
+        const updatedIngredients = {
+            ...this.state.ingredients
+        };
+        //this makes the new count go to the state
+        updatedIngredients[type] = newCount;
+        const priceDeduction = INGREDIENT_PRICES[type];
+        const oldPrice = this.state.totalPrice;
+        //this takes away the prices of each ingredient we click less for.
+        const newPrice = oldPrice - priceDeduction;
+
+        this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
     }
 
     //this exports content from Burger.js and then is able to be used on app.js
@@ -54,7 +69,9 @@ class BurgerBuilder extends Component {
             //the ingredients on here refer to the ingredients in the state.  this is how the burger.js has a variable to relate to and how it knows the length that it needs to be.
             <Aux>
                 <Burger ingredients={this.state.ingredients}/>
-                <BuildControls addIngredients={this.addIngredientHandler}/>
+                <BuildControls 
+                addIngredients={this.addIngredientHandler}
+                removeIngredients={this.removeIngredientHandler}/>
             </Aux>
         );
     }
