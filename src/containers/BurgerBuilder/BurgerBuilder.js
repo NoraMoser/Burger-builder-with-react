@@ -46,6 +46,10 @@ class BurgerBuilder extends Component {
 
     removeIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
+        //throws an error if we go below 0 without the if statement so with this nothing will happen if it's below 0
+        if(oldCount <= 0) {
+            return;
+        }
         //taking away an ingredient now
         const newCount = oldCount - 1;
 
@@ -65,13 +69,22 @@ class BurgerBuilder extends Component {
 
     //this exports content from Burger.js and then is able to be used on app.js
     render () {
+        //this is the original state an is now immutable. 
+        const disabledInfo = {
+            ...this.state.ingredients
+        };
+        //each key in disabledInfo that is less than or equal to 0
+        for(let key in disabledInfo) {
+            disabledInfo[key] = disabledInfo[key] <= 0
+        }
         return (
             //the ingredients on here refer to the ingredients in the state.  this is how the burger.js has a variable to relate to and how it knows the length that it needs to be.
             <Aux>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls 
                 addIngredients={this.addIngredientHandler}
-                removeIngredients={this.removeIngredientHandler}/>
+                removeIngredients={this.removeIngredientHandler}
+                disabled={disabledInfo}/>
             </Aux>
         );
     }
