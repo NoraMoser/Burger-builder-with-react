@@ -14,7 +14,9 @@ const controls = [
 
 //key is necessary and has to be individual.  Label works for this.  Won't always work.
 const buildControls = (props) => (
+    //the toFixed makes it only show to 2 decimal places
     <div className={classes.BuildControls}>
+    <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
         {controls.map(ctrl => (
             <BuildControl 
             key={ctrl.label} 
