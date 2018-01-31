@@ -4,6 +4,9 @@ import Burger from '../../components/Burger/Burger';
 
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+
 //global variables are typically all caps
 const INGREDIENT_PRICES = {
     salad: 0.2,
@@ -97,6 +100,9 @@ class BurgerBuilder extends Component {
         return (
             //the ingredients on here refer to the ingredients in the state.  this is how the burger.js has a variable to relate to and how it knows the length that it needs to be.
             <Aux>
+                <Modal>
+                    <OrderSummary ingredients={this.state.ingredients} />
+                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls 
                 addIngredients={this.addIngredientHandler}
