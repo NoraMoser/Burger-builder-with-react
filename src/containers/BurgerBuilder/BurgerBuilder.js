@@ -26,7 +26,8 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 4,
-        purchasable: false
+        purchasable: false,
+        purchasing: false
     }
 
     updatePurchasableProduct (ingredients) {
@@ -87,6 +88,10 @@ class BurgerBuilder extends Component {
         this.updatePurchasableProduct(updatedIngredients);
     }
 
+    purchaseHandler = () => {
+        this.setState({purchasing: true});
+    }
+
     //this exports content from Burger.js and then is able to be used on app.js
     render () {
         //this is the original state an is now immutable. 
@@ -100,7 +105,7 @@ class BurgerBuilder extends Component {
         return (
             //the ingredients on here refer to the ingredients in the state.  this is how the burger.js has a variable to relate to and how it knows the length that it needs to be.
             <Aux>
-                <Modal>
+                <Modal show={this.state.purchasing}>
                     <OrderSummary ingredients={this.state.ingredients} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
@@ -109,6 +114,7 @@ class BurgerBuilder extends Component {
                 removeIngredients={this.removeIngredientHandler}
                 disabled={disabledInfo}
                 purchasable={this.state.purchasable}
+                ordered={this.purchaseHandler}
                 price={this.state.totalPrice}/>
             </Aux>
         );
