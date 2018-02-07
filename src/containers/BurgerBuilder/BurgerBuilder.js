@@ -97,7 +97,9 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        alert('You continue!');
+        // alert('You continue!');
+        this.props.history.push('/checkout');
+
     }
 
     //this exports content from Burger.js and then is able to be used on app.js
