@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import { Route } from 'react-router-dom';
+import CheckoutData from '../Checkout/ContactData/ContactData';
 
 class Checkout extends Component {
     state = {
@@ -11,10 +13,12 @@ class Checkout extends Component {
             bacon: 1
         }
     }
-    
+    //built in js function
     componentDidMount(){
         const query = new URLSearchParams(this.props.location.search);
         const ingredients = {}
+
+        //params here are name and value of the state. So this way we update the setState below dynamically.
         for (let param of query.entries()) {
             ingredients[param[0]] = +param[1];
         }
@@ -37,6 +41,7 @@ class Checkout extends Component {
                 ingredients={this.state.ingredients} 
                 checkoutCancelled={this.checkoutCancelledHandler}
                 checkoutContinued={this.checkoutContinuedHandler}/>
+                <Route path={this.props.match.path + '/contact-data'} component={CheckoutData}/>
             </div>
         );
     }
