@@ -5,6 +5,7 @@ import Aux from '../../../hoc/Aux';
 import Backdrop from '../Backdrop/Backdrop';
 
 class Modal extends Component {
+    //not pure component because i'm not using all the checks.
     //checking that this only updates when show changes
     shouldComponentUpdate(nextProps, nextState){
         return nextProps.show !== this.props.show
@@ -13,6 +14,7 @@ class Modal extends Component {
     componentWillUpdate() {
         console.log('[Modal] WillUpdate');
     }
+    //made this a class so we don't update any components unnecessarily
 
     render() {
         return (
