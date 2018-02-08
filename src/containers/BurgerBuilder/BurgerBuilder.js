@@ -6,6 +6,8 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
 
 //global variables are typically all caps
 const INGREDIENT_PRICES = {
@@ -20,12 +22,12 @@ class BurgerBuilder extends Component {
     //using a state is how we're going to make it dynamic
     
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0, 
-            meat: 0
-        },
+        // ingredients: {
+        //     salad: 0,
+        //     bacon: 0,
+        //     cheese: 0, 
+        //     meat: 0
+        // },
         totalPrice: 4,
         purchasable: false,
         purchasing: false
@@ -119,7 +121,7 @@ class BurgerBuilder extends Component {
     render () {
         //this is the original state an is now immutable. 
         const disabledInfo = {
-            ...this.state.ingredients
+            ...this.props.ings
         };
         //each key in disabledInfo that is less than or equal to 0
         for(let key in disabledInfo) {
@@ -130,22 +132,36 @@ class BurgerBuilder extends Component {
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
                     <OrderSummary 
-                    ingredients={this.state.ingredients}
+                    ingredients={this.props.ings}
                     purchaseCancelled={this.purchaseCancelHandler}
                     purchaseContinued={this.purchaseContinueHandler} 
                     price={this.state.totalPrice}/>
                 </Modal>
-                <Burger ingredients={this.state.ingredients}/>
+                <Burger ingredients={this.props.ings}/>
                 <BuildControls 
-                addIngredients={this.addIngredientHandler}
-                removeIngredients={this.removeIngredientHandler}
+                addIngredients={this.props.onIngredientAdded}
+                removeIngredients={this.props.onIngredientRemoved}
                 disabled={disabledInfo}
                 purchasable={this.state.purchasable}
                 ordered={this.purchaseHandler}
                 price={this.state.totalPrice}/>
+            
             </Aux>
         );
     }
 }
 
-export default BurgerBuilder;
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
+        onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName})
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BurgerBuilder);
