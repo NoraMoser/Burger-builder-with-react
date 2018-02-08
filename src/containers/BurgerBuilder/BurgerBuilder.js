@@ -15,7 +15,6 @@ class BurgerBuilder extends Component {
 
     
     state = {
-        purchasable: false,
         purchasing: false
     }
 
@@ -30,7 +29,7 @@ class BurgerBuilder extends Component {
             return sum + el;
         }, 0);
         //so will become true if sum is greater than 0
-        this.setState({purchasable: sum > 0})
+        return sum > 0
     }
 
     
@@ -86,7 +85,7 @@ class BurgerBuilder extends Component {
                 addIngredients={this.props.onIngredientAdded}
                 removeIngredients={this.props.onIngredientRemoved}
                 disabled={disabledInfo}
-                purchasable={this.state.purchasable}
+                purchasable={this.updatePurchasableProduct(this.props.ings)}
                 ordered={this.purchaseHandler}
                 price={this.props.price}/>
             
