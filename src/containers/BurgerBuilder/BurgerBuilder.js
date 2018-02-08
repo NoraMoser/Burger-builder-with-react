@@ -18,6 +18,7 @@ const INGREDIENT_PRICES = {
 class BurgerBuilder extends Component {
 
     //using a state is how we're going to make it dynamic
+    
     state = {
         ingredients: {
             salad: 0,
